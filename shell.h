@@ -10,8 +10,8 @@
 #include <string.h>
 
 void print_prompt(void);
-void tok_str(char *, char **);
-int checkpath(char **cmd);
-void environ(char **);
+void parser(char *, char **);
+int add_path(char **cmd);
+void print_env(char **);
 
 #endif

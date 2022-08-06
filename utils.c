@@ -1,10 +1,11 @@
 #include "shell.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 
 
-void tok_str(char *buf, char **cmd)
+void parser(char *buf, char **cmd)
 {
 	char *ptr;
 	int i = 0;
@@ -13,6 +14,11 @@ void tok_str(char *buf, char **cmd)
 
 	while (ptr)
 	{
+		if (strcmp(ptr, "#") == 0)
+		{
+			cmd[i] = NULL;
+			return;
+		}
 		cmd[i] = ptr;
 		ptr = strtok(NULL, " \n");
 		i++;
@@ -23,9 +29,9 @@ void tok_str(char *buf, char **cmd)
 }
 
 
-int checkpath(char **cmd)
+int add_path(char **cmd)
 {
-	const char *PATH[] = {"/usr/local/bin/", "/bin/", "/sbin/", "/usr/bin/", NULL};
+	const char *PATH[] = {"/usr/local/bin/ls", "/bin/", "/sbin/", "/usr/bin/", NULL};
 	unsigned int i = 0;
     	struct stat st;
 
@@ -44,10 +50,12 @@ int checkpath(char **cmd)
 		i++;
 	}
 
+
+
 	return (-1);
 }
 
-void environ(char **env)
+void print_env(char **env)
 {		
 	int i = 0;
 
