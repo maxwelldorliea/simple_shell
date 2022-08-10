@@ -62,9 +62,11 @@ int REPL(char *buf, size_t buflen, char **cmd, char **argv, char **env)
 		if (_strcmp(cmd[0], "exit") == 0 && get_arr_len(cmd) == 2)
 		{
 			int status = _atoi(cmd[1]);
+
 			exit(status);
 		}
 		execute_cmd(cmd, argv, env);
+		free(cmd[0]);
 	} while (1);
 	exit(EXIT_SUCCESS);
 }

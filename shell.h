@@ -17,5 +17,6 @@ int REPL(char *buf, size_t buflen, char **cmd, char **argv, char **env);
 int get_arr_len(char **s);
 void execute_cmd(char **cmd, char **argv, char **env);
 int _printf(const char *format, ...);
+char *_strdup(char *str);
 
 #endif
