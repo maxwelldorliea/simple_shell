@@ -16,12 +16,12 @@ void read_cmd(char **buf, size_t *buflen)
 	{
 		if (feof(stdin))
 		{
-			free(buf);
+			free(*buf);
 			exit(EXIT_SUCCESS);
 		}
 
 		perror("Error occurred");
-		free(buf);
+		free(*buf);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -69,7 +69,6 @@ int REPL(char *buf, size_t buflen, char **cmd, char **argv, char **env)
 		if (_strcmp(cmd[0], "exit") == 0 && get_arr_len(cmd) == 2)
 		{
 			int status = _atoi(cmd[1]);
-
 			exit(status);
 		}
 		execute_cmd(cmd, argv, env);
