@@ -111,7 +111,14 @@ int get_arr_len(char **s)
 void execute_cmd(char **cmd, char **argv, char **env)
 {
 
-	add_path(cmd);
+	if (cmd[0][0] != '/' && cmd[0][0] != '.')
+	{
+		if (add_path(cmd) == -1)
+		{
+			_printf("%s: No such file or directory\n", argv[0]);
+			exit(EXIT_SUCCESS);
+		}
+	}
 
 	if (fork() == 0)
 	{
@@ -122,4 +129,3 @@ void execute_cmd(char **cmd, char **argv, char **env)
 
 	wait(NULL);
 }
-
