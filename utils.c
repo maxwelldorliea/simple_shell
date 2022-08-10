@@ -1,8 +1,8 @@
 #include "shell.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <sys/wait.h>
+#include <string.h>
 
 /**
  * parser - separate command from argumets
@@ -20,7 +20,7 @@ void parser(char *buf, char **cmd)
 
 	while (ptr)
 	{
-		if (strcmp(ptr, "#") == 0)
+		if (_strcmp(ptr, "#") == 0)
 		{
 			cmd[i] = NULL;
 			return;
@@ -50,8 +50,8 @@ int add_path(char **cmd)
 	{
 		char s[120] = "";
 
-		strcat(s, PATH[i]);
-		strcat(s, cmd[0]);
+		_strcat(s, PATH[i]);
+		_strcat(s, cmd[0]);
 
 		if (stat(s, &st) == 0)
 		{
@@ -77,7 +77,7 @@ void print_env(char **env)
 	int i = 0;
 
 	while (env[i])
-		printf("%s\n", env[i++]);
+		_printf("%s\n", env[i++]);
 }
 
 
@@ -116,7 +116,7 @@ void execute_cmd(char **cmd, char **argv, char **env)
 	if (fork() == 0)
 	{
 		execve(cmd[0], cmd, env);
-		printf("%s: No such file or directory\n", argv[0]);
+		_printf("%s: No such file or directory\n", argv[0]);
 		exit(EXIT_SUCCESS);
 	}
 

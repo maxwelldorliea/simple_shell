@@ -7,7 +7,7 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <string.h>
+#include "str.h"
 
 void print_prompt(void);
 void parser(char *, char **);
@@ -16,5 +16,6 @@ void print_env(char **);
 int REPL(char *buf, size_t buflen, char **cmd, char **argv, char **env);
 int get_arr_len(char **s);
 void execute_cmd(char **cmd, char **argv, char **env);
+int _printf(const char *format, ...);
 
 #endif
