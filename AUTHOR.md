@@ -1,3 +1,3 @@
 
-Maxwell D. Dorliea <deboy170@gmail.com>
-Adebiyi Opeyemi <nomailyet@gmail.com>
+[Maxwell D. Dorliea] (https://github.com/Maxcarrassco)
+[Adebiyi Opeyemi] (https://github.com/AdebiyiOpeyemi)
