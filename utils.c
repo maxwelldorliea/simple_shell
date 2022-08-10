@@ -57,7 +57,7 @@ int add_path(char **cmd)
 			return (-1);
 		}
 
-		memset(s, 0, len);
+		_memset(s, 0, len);
 		s = _strcat(s, PATH[i]);
 		s = _strcat(s, *cmd);
 

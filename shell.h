@@ -18,5 +18,6 @@ int get_arr_len(char **s);
 void execute_cmd(char **cmd, char **argv, char **env);
 int _printf(const char *format, ...);
 char *_strdup(char *str);
+char *_memset(char *s, char b, unsigned int n);
 
 #endif
