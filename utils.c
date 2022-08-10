@@ -48,14 +48,17 @@ int add_path(char **cmd)
 
 	while (PATH[i])
 	{
-		char s[120] = "";
+		int len = _strlen(PATH[i]) + _strlen(*cmd) + 2;
+		char *s = malloc(sizeof(*s) * len);
 
-		_strcat(s, PATH[i]);
-		_strcat(s, cmd[0]);
+		memset(s, 0, len);
+		s = _strcat(s, PATH[i]);
+		s = _strcat(s, *cmd);
 
 		if (stat(s, &st) == 0)
 		{
-			cmd[0] = s;
+			*cmd = s;
+			free(s);
 			return (0);
 		}
 
@@ -111,14 +114,14 @@ int get_arr_len(char **s)
 void execute_cmd(char **cmd, char **argv, char **env)
 {
 
-	if (cmd[0][0] != '/' && cmd[0][0] != '.')
+/*	if (cmd[0][0] != '/' && cmd[0][0] != '.')
 	{
-		if (add_path(cmd) == -1)
+		if (add_path(&(cmd[0])) == -1)
 		{
 			_printf("%s: No such file or directory\n", argv[0]);
-			exit(EXIT_SUCCESS);
+			return;
 		}
-	}
+	}*/
 
 	if (fork() == 0)
 	{

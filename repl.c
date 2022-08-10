@@ -14,13 +14,6 @@ void read_cmd(char **buf, size_t *buflen)
 
 	if (getline(buf, buflen, stdin) == -1)
 	{
-		if (feof(stdin))
-		{
-			free(*buf);
-			exit(EXIT_SUCCESS);
-		}
-
-		perror("Error occurred");
 		free(*buf);
 		exit(EXIT_FAILURE);
 	}

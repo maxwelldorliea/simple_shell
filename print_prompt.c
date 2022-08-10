@@ -1,5 +1,4 @@
 #include "shell.h"
-#include <stdio.h>
 
 /**
  * print_prompt - initialize shell
@@ -8,5 +7,6 @@
 
 void print_prompt(void)
 {
-	fprintf(stderr, "#cisfun$ ");
+	char *buf = ":) ";
+	write(2, buf, _strlen(buf));
 }
