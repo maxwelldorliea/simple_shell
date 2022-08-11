@@ -129,7 +129,6 @@ void execute_cmd(char **cmd, char **argv, char **env)
 	if (fork() == 0)
 	{
 		execve(cmd[0], cmd, env);
-		free(cmd[0]);
 		_printf(argv[0]);
 		_printf(": No such file or directory\n");
 		return;
@@ -138,7 +137,6 @@ void execute_cmd(char **cmd, char **argv, char **env)
 	else
 	{
 		wait(&status);
-		free(cmd[0]);
 	}
 
 }
