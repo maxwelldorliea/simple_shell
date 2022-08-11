@@ -55,7 +55,6 @@ int REPL(char *buf, size_t buflen, char **cmd, char **argv, char **env)
 			continue;
 		}
 		parser(buf, cmd);
-
 		if (cmd[0] == NULL)
 		{
 			free(cmd[0]);
