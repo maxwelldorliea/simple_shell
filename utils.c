@@ -132,7 +132,7 @@ void execute_cmd(char **cmd, char **argv, char **env)
 		free(cmd[0]);
 		_printf(argv[0]);
 		_printf(": No such file or directory\n");
-		exit(EXIT_SUCCESS);
+		return;
 	}
 
 	else

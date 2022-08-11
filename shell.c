@@ -16,5 +16,5 @@ int main(int argc, char **argv, char **env)
 
 	(void)argc;
 	REPL(buf, buflen, cmd, argv, env);
-	exit(EXIT_SUCCESS);
+	return (0);
 }

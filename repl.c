@@ -15,7 +15,7 @@ void read_cmd(char **buf, size_t *buflen)
 	if (getline(buf, buflen, stdin) == -1)
 	{
 		free(buf);
-		exit(EXIT_FAILURE);
+		exit(0);
 	}
 }
 
@@ -46,7 +46,7 @@ int REPL(char *buf, size_t buflen, char **cmd, char **argv, char **env)
 		if (_strcmp(buf, "exit\n") == 0)
 		{
 			free(buf);
-			exit(EXIT_SUCCESS);
+			return (0);;
 		}
 		if (_strcmp(buf, "env\n") == 0)
 		{
@@ -70,5 +70,5 @@ int REPL(char *buf, size_t buflen, char **cmd, char **argv, char **env)
 		}
 		execute_cmd(cmd, argv, env);
 	} while (1);
-	exit(EXIT_SUCCESS);
+	return (0);
 }
