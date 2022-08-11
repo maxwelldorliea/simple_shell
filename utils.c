@@ -113,6 +113,7 @@ int get_arr_len(char **s)
 
 void execute_cmd(char **cmd, char **argv, char **env)
 {
+	int status;
 
 	if (cmd[0][0] != '/' && cmd[0][0] != '.')
 	{
@@ -136,7 +137,7 @@ void execute_cmd(char **cmd, char **argv, char **env)
 
 	else
 	{
-		wait(NULL);
+		wait(&status);
 		free(cmd[0]);
 	}
 
