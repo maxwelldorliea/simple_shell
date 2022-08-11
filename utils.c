@@ -42,28 +42,16 @@ void parser(char *buf, char **cmd)
 
 int add_path(char **cmd)
 {
-	char *PATH[] = {"/usr/local/bin/ls", "/bin/", "/sbin/", "/usr/bin/", NULL};
+	char *PATH[] = {"/usr/local/bin", "/bin", "/sbin", "/usr/bin", NULL}, *s;
 	unsigned int i = 0;
 	struct stat st;
 
 	while (PATH[i])
 	{
-		int len = _strlen(PATH[i]) + _strlen(*cmd) + 2;
-		char *s = malloc(sizeof(*s) * len);
-
-		if (s == NULL)
-		{
-			free(s);
-			return (-1);
-		}
-
-		_memset(s, 0, len);
-		s = _strcat(s, PATH[i]);
-		s = _strcat(s, *cmd);
-
+		s = build(*cmd, PATH[i]);
 		if (stat(s, &st) == 0)
 		{
-			*cmd = _strcpy(*cmd, s);
+			*cmd = _strdup(s);
 			free(s);
 			return (0);
 		}
@@ -146,5 +134,10 @@ void execute_cmd(char **cmd, char **argv, char **env)
 		exit(EXIT_SUCCESS);
 	}
 
-	wait(NULL);
+	else
+	{
+		wait(NULL);
+		free(cmd[0]);
+	}
+
 }

@@ -14,7 +14,7 @@ void read_cmd(char **buf, size_t *buflen)
 
 	if (getline(buf, buflen, stdin) == -1)
 	{
-		free(*buf);
+		free(buf);
 		exit(EXIT_FAILURE);
 	}
 }
