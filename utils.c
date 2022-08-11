@@ -56,8 +56,8 @@ int add_path(char **cmd)
 			return (0);
 		}
 
-		free(s);
 
+		free(s);
 		i++;
 	}
 
