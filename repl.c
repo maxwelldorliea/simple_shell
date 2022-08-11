@@ -36,6 +36,8 @@ int REPL(char *buf, size_t buflen, char **cmd, char **argv, char **env)
 	do {
 		print_prompt();
 		read_cmd(&buf, &buflen);
+		if (!buf)
+			return (0);
 
 		if (buf[0] == '\0' || _strcmp(buf, "\n") == 0)
 		{
@@ -46,7 +48,7 @@ int REPL(char *buf, size_t buflen, char **cmd, char **argv, char **env)
 		if (_strcmp(buf, "exit\n") == 0)
 		{
 			free(buf);
-			return (0);;
+			return (0);
 		}
 		if (_strcmp(buf, "env\n") == 0)
 		{
@@ -64,6 +66,7 @@ int REPL(char *buf, size_t buflen, char **cmd, char **argv, char **env)
 		{
 			int status = _atoi(cmd[1]);
 
+			free(buf);
 			exit(status);
 		}
 		execute_cmd(cmd, argv, env);
