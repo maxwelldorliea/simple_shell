@@ -16,15 +16,13 @@ int _putchar(int ch)
 
 
 /**
- * pr_str - prints a string
- * @args: va_list
+ * _printf - produces output according to a format
+ * @s: char pointer
  * Return: int
  */
 
-
-int pr_str(va_list args)
+int _printf(char *s)
 {
-	char *s = va_arg(args, char *);
 	int len = 0;
 
 	if (s == NULL)
@@ -39,52 +37,4 @@ int pr_str(va_list args)
 
 
 	return (len);
-}
-
-
-
-/**
- * _printf - produces output according to a format
- * @format: char pointer
- * Return: int
- */
-
-int _printf(const char *format, ...)
-{
-	int i = 0, cnt = 0;
-	va_list args;
-
-	va_start(args, format);
-
-	if (format == NULL)
-		return (-1);
-	while (format[i])
-	{
-		if (format[i] != '%')
-		{
-			cnt += _putchar(format[i]);
-			i++;
-			continue;
-		}
-		if (format[i + 1] == '%')
-		{
-			cnt += _putchar(format[++i]);
-			i++;
-			continue;
-		}
-		if (format[++i] == 's')
-		{
-			cnt += pr_str(args);
-		}
-		else
-		{
-			if (format[i] == '\0')
-				return (-1);
-			cnt += _putchar(format[i - 1]);
-			cnt += _putchar(format[i]);
-		}
-		i++;
-	}
-	va_end(args);
-	return (cnt);
 }

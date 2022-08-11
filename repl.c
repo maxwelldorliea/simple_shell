@@ -69,7 +69,6 @@ int REPL(char *buf, size_t buflen, char **cmd, char **argv, char **env)
 			exit(status);
 		}
 		execute_cmd(cmd, argv, env);
-		free(cmd[0]);
 	} while (1);
 	exit(EXIT_SUCCESS);
 }

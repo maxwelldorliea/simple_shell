@@ -63,7 +63,7 @@ int add_path(char **cmd)
 
 		if (stat(s, &st) == 0)
 		{
-			*cmd = _strdup(s);
+			*cmd = _strcpy(*cmd, s);
 			free(s);
 			return (0);
 		}
@@ -88,7 +88,11 @@ void print_env(char **env)
 	int i = 0;
 
 	while (env[i])
-		_printf("%s\n", env[i++]);
+	{
+		_printf(env[i]);
+		_printf("\n");
+		i++;
+	}
 }
 
 
@@ -126,7 +130,9 @@ void execute_cmd(char **cmd, char **argv, char **env)
 	{
 		if (add_path(&(cmd[0])) == -1)
 		{
-			_printf("%s: No such file or directory\n", argv[0]);
+
+			_printf(argv[0]);
+			_printf(": No such file or directory\n");
 			return;
 		}
 	}
@@ -135,7 +141,8 @@ void execute_cmd(char **cmd, char **argv, char **env)
 	{
 		execve(cmd[0], cmd, env);
 		free(cmd[0]);
-		_printf("%s: No such file or directory\n", argv[0]);
+		_printf(argv[0]);
+		_printf(": No such file or directory\n");
 		exit(EXIT_SUCCESS);
 	}
 
