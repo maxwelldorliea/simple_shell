@@ -12,9 +12,13 @@
 
 void read_cmd(char **buf, size_t *buflen)
 {
+	int n;
 
-	if (getline(buf, buflen, stdin) == -1)
+	n = getline(buf, buflen, stdin);
+
+	if (n == -1)
 	{
+		free(*buf);
 		exit(0);
 	}
 }

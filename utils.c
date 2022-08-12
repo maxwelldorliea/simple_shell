@@ -16,7 +16,7 @@ void parser(char *buf, char **cmd)
 	char *ptr;
 	int i = 0;
 
-	ptr = strtok(buf, " \n");
+	ptr = strtok(buf, " \r\t\n");
 
 	while (ptr)
 	{
@@ -132,6 +132,8 @@ void execute_cmd(char **cmd, char **argv, char **env)
 		execve(cmd[0], cmd, env);
 		_printf(argv[0]);
 		_printf(": No such file or directory\n");
+		free(cmd[0]);
+		exit(0);
 
 	}
 
