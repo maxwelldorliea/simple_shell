@@ -55,7 +55,6 @@ int REPL(char *buf, size_t buflen, char **cmd, char **argv, char **env)
 		}
 		if (_strcmp(buf, "env\n") == 0)
 		{
-			free(buf);
 			print_env(env);
 			continue;
 		}
