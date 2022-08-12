@@ -21,7 +21,7 @@ void parser(char *buf, char **cmd)
 
 	while (ptr)
 	{
-		if (_strcmp(ptr, "#") == 0)
+		if (ptr[0] == '#')
 		{
 			cmd[i] = NULL;
 			return;
