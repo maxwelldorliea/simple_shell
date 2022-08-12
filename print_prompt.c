@@ -9,5 +9,5 @@ void print_prompt(void)
 {
 	char *buf = ":) ";
 
-	write(0, buf, _strlen(buf));
+	write(1, buf, _strlen(buf));
 }
