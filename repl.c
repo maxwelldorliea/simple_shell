@@ -1,6 +1,7 @@
 #include "shell.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 
 /**
@@ -38,12 +39,12 @@ int REPL(char *buf, size_t buflen, char **cmd, char **argv, char **env)
 {
 
 	do {
-		print_prompt();
+		if (isatty(STDIN_FILENO))
+			print_prompt();
 		read_cmd(&buf, &buflen);
 
 		if (buf[0] == '\0' || _strcmp(buf, "\n") == 0)
 		{
-			free(buf);
 			continue;
 		}
 
