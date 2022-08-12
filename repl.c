@@ -62,6 +62,7 @@ int REPL(char *buf, size_t buflen, char **cmd, char **argv, char **env)
 		{
 			int status = _atoi(cmd[1]);
 
+			free(buf);
 			exit(status);
 		}
 		execute_cmd(cmd, argv, env);
