@@ -7,7 +7,5 @@
 
 void print_prompt(void)
 {
-	char *buf = ":) ";
-
-	write(1, buf, _strlen(buf));
+	printf(":) ");
 }
