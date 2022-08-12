@@ -7,5 +7,5 @@
 
 void print_prompt(void)
 {
-	printf(":) ");
+	_printf(":) ");
 }

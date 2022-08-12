@@ -52,13 +52,13 @@ char *_memset(char *s, char b, unsigned int n)
 }
 
 /**
- * build - Build Command
+ * build_path - Build Command
  * @token: Excutable Command
  * @value: Dirctory Conatining Command
  *
  * Return: Parsed Full Path Of Command Or NULL Case Failed
  */
-char *build(char *token, char *value)
+char *build_path(char *token, char *value)
 {
 	char *cmd;
 	size_t len;

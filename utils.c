@@ -1,4 +1,5 @@
 #include "shell.h"
+#include "str.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/wait.h>
@@ -16,7 +17,7 @@ void parser(char *buf, char **cmd)
 	char *ptr;
 	int i = 0;
 
-	ptr = strtok(buf, " \r\t\n");
+	ptr = strtok(buf, " \a\r\t\n");
 
 	while (ptr)
 	{
@@ -37,31 +38,33 @@ void parser(char *buf, char **cmd)
 /**
  * add_path - add the rightful path to the command enter by the user
  * @cmd: command enter by user
+ * @env: array of env
  * Return: 0 on success and 1 on failure
  */
 
-int add_path(char **cmd)
+int add_path(char **cmd, char **env)
 {
-	char *PATH[] = {"/usr/local/bin", "/bin", "/sbin", "/usr/bin", NULL}, *s;
-	unsigned int i = 0;
+	char *patharr, *s, *path = _getenv("PATH", env);
 	struct stat st;
 
-	while (PATH[i])
+	patharr = strtok(path, ":");
+
+	while (patharr)
 	{
-		s = build(*cmd, PATH[i]);
+		s = build_path(*cmd, patharr);
 		if (stat(s, &st) == 0)
 		{
 			*cmd = _strdup(s);
 			free(s);
+			free(path);
 			return (0);
 		}
-
-
+		patharr = strtok(NULL, ":");
 		free(s);
-		i++;
 	}
 
 
+	free(path);
 	return (-1);
 }
 
@@ -117,7 +120,7 @@ void execute_cmd(char **cmd, char **argv, char **env)
 
 	if (cmd[0][0] != '/' && cmd[0][0] != '.')
 	{
-		n = add_path(&(cmd[0]));
+		n = add_path(&(cmd[0]), env);
 		if (n == -1)
 		{
 
