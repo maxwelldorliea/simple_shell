@@ -11,10 +11,9 @@
 int main(int argc, char **argv, char **env)
 {
 	char *buf = NULL;
-	size_t buflen = 0;
 	char *cmd[20];
 
 	(void)argc;
-	REPL(buf, buflen, cmd, argv, env);
+	REPL(buf, cmd, argv, env);
 	return (0);
 }

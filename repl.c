@@ -29,6 +29,46 @@ int exit_arg(char **cmd, char **argv, char *buf)
 	exit(status);
 }
 
+char *_getline()
+{
+	int i, buffsize = BUFSIZE, rd;
+	char c = 0;
+	char *buff = malloc(buffsize);
+
+	if (buff == NULL)
+	{
+		free(buff);
+		return (NULL);
+	}
+
+	for (i = 0; c != EOF && c != '\n'; i++)
+	{
+		fflush(stdin);
+		rd = read(STDIN_FILENO, &c, 1);
+		if (rd == 0)
+		{
+			free(buff);
+			exit(EXIT_SUCCESS);
+		}
+		buff[i] = c;
+		if (buff[0] == '\n')
+		{
+			free(buff);
+			return ("\0");
+		}
+		if (i >= buffsize)
+		{
+			buff = _realloc(buff, buffsize, buffsize + 1);
+			if (buff == NULL)
+			{
+				return (NULL);
+			}
+		}
+	}
+	buff[i] = '\0';
+	return (buff);
+}
+
 /**
  * read_cmd - reads the commands from the terminal till newline char
  * @buf: buffer to read the commands into
@@ -36,17 +76,19 @@ int exit_arg(char **cmd, char **argv, char *buf)
  * Return: Nothing
  */
 
-void read_cmd(char **buf, size_t *buflen)
+char *read_cmd(void)
 {
-	int n;
+	char *n;
 
-	n = getline(buf, buflen, stdin);
+	n = _getline();
 
-	if (n == -1)
+	if (n == NULL)
 	{
-		free(*buf);
+		free(n);
 		exit(0);
 	}
+
+	return (n);
 }
 
 /**
@@ -60,13 +102,13 @@ void read_cmd(char **buf, size_t *buflen)
  */
 
 
-int REPL(char *buf, size_t buflen, char **cmd, char **argv, char **env)
+int REPL(char *buf, char **cmd, char **argv, char **env)
 {
 
 	do {
 		if (isatty(STDIN_FILENO))
 			print_prompt();
-		read_cmd(&buf, &buflen);
+		buf = read_cmd();
 		if (buf[0] == '\0' || _strcmp(buf, "\n") == 0)
 		{
 			continue;
