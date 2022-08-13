@@ -17,7 +17,7 @@ void parser(char *buf, char **cmd)
 	char *ptr;
 	int i = 0;
 
-	ptr = strtok(buf, " \a\r\t\n");
+	ptr = _strtok(buf, " \a\r\t\n");
 
 	while (ptr)
 	{
@@ -27,7 +27,7 @@ void parser(char *buf, char **cmd)
 			return;
 		}
 		cmd[i] = ptr;
-		ptr = strtok(NULL, " \n");
+		ptr = _strtok(NULL, " \n");
 		i++;
 	}
 
@@ -47,7 +47,7 @@ int add_path(char **cmd, char **env)
 	char *patharr, *s, *path = _getenv("PATH", env);
 	struct stat st;
 
-	patharr = strtok(path, ":");
+	patharr = _strtok(path, ":");
 
 	while (patharr)
 	{
@@ -59,7 +59,7 @@ int add_path(char **cmd, char **env)
 			free(path);
 			return (0);
 		}
-		patharr = strtok(NULL, ":");
+		patharr = _strtok(NULL, ":");
 		free(s);
 	}
 

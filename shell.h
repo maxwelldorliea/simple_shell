@@ -21,5 +21,6 @@ char *_strdup(char *str);
 char *build_path(char *token, char *value);
 char *_memset(char *s, char b, unsigned int n);
 char *_getenv(char *target, char **env);
+char *_strtok(char *str, const char *delim);
 
 #endif
