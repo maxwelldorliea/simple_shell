@@ -1,7 +1,6 @@
 #ifndef SHELL_H
 #define SHELL_H
 
-#define BUFSIZE 1024
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -14,7 +13,7 @@ void print_prompt(void);
 void parser(char *, char **);
 int add_path(char **cmd, char **env);
 void print_env(char **);
-int REPL(char *buf, char **cmd, char **argv, char **env);
+int REPL(char *buf, size_t buflen, char **cmd, char **argv, char **env);
 int get_arr_len(char **s);
 void execute_cmd(char **cmd, char **argv, char **env);
 int _printf(char *);

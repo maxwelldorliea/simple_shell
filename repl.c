@@ -1,4 +1,5 @@
 #include "shell.h"
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -29,45 +30,6 @@ int exit_arg(char **cmd, char **argv, char *buf)
 	exit(status);
 }
 
-char *_getline()
-{
-	int i, buffsize = BUFSIZE, rd;
-	char c = 0;
-	char *buff = malloc(buffsize);
-
-	if (buff == NULL)
-	{
-		free(buff);
-		return (NULL);
-	}
-
-	for (i = 0; c != EOF && c != '\n'; i++)
-	{
-		fflush(stdin);
-		rd = read(STDIN_FILENO, &c, 1);
-		if (rd == 0)
-		{
-			free(buff);
-			exit(EXIT_SUCCESS);
-		}
-		buff[i] = c;
-		if (buff[0] == '\n')
-		{
-			free(buff);
-			return ("\0");
-		}
-		if (i >= buffsize)
-		{
-			buff = _realloc(buff, buffsize, buffsize + 1);
-			if (buff == NULL)
-			{
-				return (NULL);
-			}
-		}
-	}
-	buff[i] = '\0';
-	return (buff);
-}
 
 /**
  * read_cmd - reads the commands from the terminal till newline char
@@ -76,15 +38,15 @@ char *_getline()
  * Return: Nothing
  */
 
-char *read_cmd(void)
+int read_cmd(char **buf, size_t *buflen)
 {
-	char *n;
+	int n;
 
-	n = _getline();
+	n = getline(buf, buflen, stdin);
 
-	if (n == NULL)
+	if (n == -1)
 	{
-		free(n);
+		free(*buf);
 		exit(0);
 	}
 
@@ -102,13 +64,13 @@ char *read_cmd(void)
  */
 
 
-int REPL(char *buf, char **cmd, char **argv, char **env)
+int REPL(char *buf, size_t buflen, char **cmd, char **argv, char **env)
 {
 
 	do {
 		if (isatty(STDIN_FILENO))
 			print_prompt();
-		buf = read_cmd();
+		read_cmd(&buf, &buflen);
 		if (buf[0] == '\0' || _strcmp(buf, "\n") == 0)
 		{
 			continue;

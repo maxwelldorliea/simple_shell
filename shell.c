@@ -1,4 +1,5 @@
 #include "shell.h"
+#include <stddef.h>
 
 /**
  * main - run shell
@@ -11,9 +12,10 @@
 int main(int argc, char **argv, char **env)
 {
 	char *buf = NULL;
+	size_t buflen = 0;
 	char *cmd[20];
 
 	(void)argc;
-	REPL(buf, cmd, argv, env);
+	REPL(buf, buflen, cmd, argv, env);
 	return (0);
 }
